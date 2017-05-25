@@ -28,7 +28,7 @@ public class Game extends Observable {
 		for(int i=1; i< 5;i++){
 			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth() + floor.get(i-1).getBlank(), -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));
 		}
-		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - (floor.get(0).getWidth()+floor.get(0).getBlank());
+		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - (floor.get(0).getWidth());
 		
 	}
 	
@@ -61,8 +61,7 @@ public class Game extends Observable {
 			if(useFloor+1 < 5){
 				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(useFloor+1).getWidth() + floor.get(useFloor+1).getBlank());
 				useFloor++;
-			}
-			else{
+			} else{
 				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(0).getWidth() + floor.get(0).getBlank());
 				System.out.println("======================================");
 				useFloor = 0;
