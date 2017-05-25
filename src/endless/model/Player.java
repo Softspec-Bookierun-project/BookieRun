@@ -14,7 +14,7 @@ import endless.state.StateNormal;
 
 public class Player {
 
-	public static final int JUMP_SPEED = 600;
+	
 	public static final int WIDTH = 30;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
@@ -29,6 +29,7 @@ public class Player {
 	private boolean onTheFloor = true;
 	private boolean death = false;
 	private State state;
+	private int jumpSpeed = 600;
 	
 	
 	public void setState(State state) {
@@ -46,7 +47,7 @@ public class Player {
 		this.hp = HEALTH;
 		this.width = WIDTH;
 		this.setHeight(NORMAL_HEIGHT);
-		state = new StateNormal(this);
+		setState(new StateNormal(this));
 		// TODO: Initialize variables you need
 	}
 	
@@ -87,19 +88,16 @@ public class Player {
 	}
 
 	public void jumpPressed() {
-		// TODO: Complete this
 		state.pressJump();
 	}
 
 	public void crawlPressed() {
-		// TODO: Complete this Pressed");
 		state.pressCrawl();
 	}
 
 	public void crawlReleased() {
-		// TODO: Complete this
-		if(state instanceof StateCrawl)
-			state.stand();
+		if(getState() instanceof StateCrawl)
+			 state.stand();
 	}
 
 	public void death(){
@@ -113,12 +111,14 @@ public class Player {
 		if(hp == 0) death();
 		hp -= 0.1;
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
-			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
-			y = (int) (getJumpY() + JUMP_SPEED * t + 0.5f * Game.GRAVITY * t * t);
-			if (y <= 0) {
-				state.stand();
-			}
-		}
+  			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
+  			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
+ 			if(y <0 && onTheFloor == true){
+  				state.stand();
+  			}
+ 			if(y > 0)
+ 				setFloor(true);
+  		}
 	}
 
 	public long getJumpTime() {
@@ -128,10 +128,18 @@ public class Player {
 	public void setJumpTime(long jumpTime) {
 		this.jumpTime = jumpTime;
 	}
+	
+	public State getState() {
+		return state;
+	}
 
 	public int getJumpY() {
 		return jumpY;
 	}
+	
+	public int getJumpSpeed() {
+ 		return jumpSpeed;
+ 	}
 
 	public void setJumpY(int jumpY) {
 		this.jumpY = jumpY;
@@ -148,4 +156,8 @@ public class Player {
 	public boolean isDeath() {
 		return death;
 	}
+	
+	public void setJumpSpeed(int jumpSpeed) {
+  		this.jumpSpeed = jumpSpeed;
+  	}
 }
