@@ -1,9 +1,10 @@
 package endless.model;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 
-import endless.state.StateJumpOne;
-
+import endless.Menu;
+import endless.Window;
 
 public class Game extends Observable {
 
@@ -14,20 +15,20 @@ public class Game extends Observable {
 	private Ball ball;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
 	private int useFloor = 0;
-	private int endOfFloor;
 	
 	private boolean running;
 	private Thread gameThread;
+	
 	
 	public Game() {
 		player = new Player(0, 0);
 		ball = new Ball(1000, 0);
 		
-		floor.add(new Floor(-50, -30, ((int)(Math.random()* 400))+200));
-		for(int i=1; i< 5;i++){
-			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth()+(int)(Math.random()* 300)+100, -30, ((int)(Math.random()* 700))+200));
+		int j= -50;
+		for(int i=0; i< 5;i++){
+			floor.add(new Floor(j, -30));
+			j += 1100;
 		}
-		endOfFloor = floor.get(4).getX()+floor.get(4).getWidth() - floor.get(0).getWidth() + 100;
 		
 	}
 	
@@ -39,6 +40,9 @@ public class Game extends Observable {
 				super.run();
 				while(running) {
 					singleFrame();
+					if(player.isDeath()) {
+						break;
+					}
 					try {
 						Thread.sleep(1000 / FPS);
 					} catch (InterruptedException e) {
@@ -52,39 +56,14 @@ public class Game extends Observable {
 	
 	private void singleFrame() {
 		
-		if((floor.get(useFloor).getX()+floor.get(useFloor).getWidth()) <= -50){
-			floor.get(useFloor).setX(endOfFloor);
-			floor.get(useFloor).setWidth((int)(Math.random()* 700)+200);
-			
-			if(useFloor+1 < 5){
-				endOfFloor = floor.get(useFloor).getX()+floor.get(useFloor).getWidth() - floor.get(useFloor+1).getWidth();
-				useFloor++;
-			}
-			else{
-				endOfFloor = floor.get(useFloor).getX()+floor.get(useFloor).getWidth() - floor.get(0).getWidth();
-				System.out.println("======================================");
-				useFloor = 0;
-			}
-		}
+		if(floor.get(useFloor+1).getX() <= -50)
+			useFloor++;
 		
-		if(useFloor+1 < 5){
-			if(((player.getX() < (floor.get(useFloor+1).getX()))&&(player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth())) && (player.getY() == 0)){
-				player.setJumpTime(System.currentTimeMillis());
-				player.setJumpY(player.getY());
-				player.setJumpSpeed(0);
-				player.setState(new StateJumpOne(this.player));
+		if(((player.getX() < (floor.get(useFloor+1).getX()))&&(player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth())) && (player.getY() == 0))
 				player.setFloor(false);
-			}
-		}else {
-			if(((player.getX() < (floor.get(0).getX()))&&(player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth())) && (player.getY() == 0)){
-				player.setJumpTime(System.currentTimeMillis());
-				player.setJumpY(player.getY());
-				player.setJumpSpeed(0);
-				player.setState(new StateJumpOne(this.player));
-				player.setFloor(false);
-			}
-		}
-	
+		
+		System.out.println(useFloor);
+		
 		player.update();
 		ball.update();
 		for(int i=0;i<5;i++){
@@ -109,6 +88,10 @@ public class Game extends Observable {
 	
 	public int getPlayerHeight() {
 		return player.getHeight();
+	}
+	
+	public int getPlayerHp(){
+		return player.getHp();
 	}
 	
 	public int getBallX() {

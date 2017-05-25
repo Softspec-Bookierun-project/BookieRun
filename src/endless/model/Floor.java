@@ -8,6 +8,7 @@ import java.sql.Time;
 
 public class Floor {
 
+	public static final int WIDTH = 1000;
 	public static final int NORMAL_HEIGHT = 30;
 
 	private int x;
@@ -18,10 +19,10 @@ public class Floor {
 	
 	// TODO: Add variables you need.
 
-	public Floor(int x, int y, int width) {
+	public Floor(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.setWidth(width);
+		this.width = WIDTH;
 		this.height = NORMAL_HEIGHT;
 		// TODO: Initialize variables you need
 	}
@@ -61,10 +62,6 @@ public class Floor {
 	public void update() {
 		// TODO: Complete this
 		this.x -= this.vY;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
 	}
 
 }

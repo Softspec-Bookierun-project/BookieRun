@@ -11,7 +11,6 @@ public class StateJumpOne extends State{
 	
 	@Override
 	public void pressJump() {
-		player.setJumpSpeed(600);
 		player.setJumpTime(System.currentTimeMillis());
 		player.setJumpY(player.getY());
 		
