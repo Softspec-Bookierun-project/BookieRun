@@ -25,7 +25,7 @@ public class Player {
 	private int vY;
 	private int width;
 	private int height;
-	private int hp;
+	private double hp;
 	private boolean onTheFloor = true;
 	private boolean death = false;
 	private State state;
@@ -111,7 +111,7 @@ public class Player {
 	public void update() {
 		// TODO: Complete this
 		if(hp == 0) death();
-		hp -= 0.000000000001;
+		hp -= 0.1;
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
 			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
 			y = (int) (getJumpY() + JUMP_SPEED * t + 0.5f * Game.GRAVITY * t * t);
@@ -141,7 +141,7 @@ public class Player {
 		this.height = height;
 	}
 	
-	public int getHp(){
+	public double getHp(){
 		return hp;
 	}
 	
