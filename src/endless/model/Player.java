@@ -4,6 +4,7 @@ package endless.model;
 import java.security.Timestamp;
 import java.sql.Time;
 
+import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
 import endless.state.StateJumpOne;
@@ -13,18 +14,21 @@ import endless.state.StateNormal;
 
 public class Player {
 
+	public static final int JUMP_SPEED = 600;
 	public static final int WIDTH = 30;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
+	public static final int HEALTH = 200;
 
 	private int x;
 	private int y;
 	private int vY;
 	private int width;
 	private int height;
+	private int hp;
 	private boolean onTheFloor = true;
+	private boolean death = false;
 	private State state;
-	private int jumpSpeed = 600;
 	
 	
 	public void setState(State state) {
@@ -39,6 +43,7 @@ public class Player {
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.hp = HEALTH;
 		this.width = WIDTH;
 		this.setHeight(NORMAL_HEIGHT);
 		state = new StateNormal(this);
@@ -97,16 +102,20 @@ public class Player {
 			state.stand();
 	}
 
+	public void death(){
+		death = true;
+		Menu m = new Menu();
+		m.setVisible(true);
+	}
+	
 	public void update() {
 		// TODO: Complete this
+		if(hp == 0) death();
+		hp -= 0.000000000001;
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
 			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
-			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
-			if (onTheFloor == false) {
-				if(y > 0)
-					setFloor(true);
-			}
-			else if(y <=0){
+			y = (int) (getJumpY() + JUMP_SPEED * t + 0.5f * Game.GRAVITY * t * t);
+			if (y <= 0) {
 				state.stand();
 			}
 		}
@@ -131,15 +140,12 @@ public class Player {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-
-	public int getJumpSpeed() {
-		return jumpSpeed;
-	}
-
-	public void setJumpSpeed(int jumpSpeed) {
-		this.jumpSpeed = jumpSpeed;
+	
+	public int getHp(){
+		return hp;
 	}
 	
-	
-
+	public boolean isDeath() {
+		return death;
+	}
 }
