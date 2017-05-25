@@ -15,13 +15,15 @@ public class Floor {
 	private int vY = 5;
 	private int width;
 	private int height;
+	private int blank;
 	
 	// TODO: Add variables you need.
 
-	public Floor(int x, int y, int width) {
+	public Floor(int x, int y, int width, int blank) {
 		this.x = x;
 		this.y = y;
-		this.setWidth(width);
+		this.blank = blank;
+		this.width = width;
 		this.height = NORMAL_HEIGHT;
 		// TODO: Initialize variables you need
 	}
@@ -65,6 +67,14 @@ public class Floor {
 
 	public void setWidth(int width) {
 		this.width = width;
+	}
+
+	public int getBlank() {
+		return blank;
+	}
+
+	public void setBlank(int blank) {
+		this.blank = blank;
 	}
 
 }

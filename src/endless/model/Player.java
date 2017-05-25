@@ -41,7 +41,7 @@ public class Player {
 		this.y = y;
 		this.width = WIDTH;
 		this.setHeight(NORMAL_HEIGHT);
-		state = new StateNormal(this);
+		setState(new StateNormal(this));
 		// TODO: Initialize variables you need
 	}
 	
@@ -83,18 +83,18 @@ public class Player {
 
 	public void jumpPressed() {
 		// TODO: Complete this
-		state.pressJump();
+		getState().pressJump();
 	}
 
 	public void crawlPressed() {
 		// TODO: Complete this Pressed");
-		state.pressCrawl();
+		getState().pressCrawl();
 	}
 
 	public void crawlReleased() {
 		// TODO: Complete this
-		if(state instanceof StateCrawl)
-			state.stand();
+		if(getState() instanceof StateCrawl)
+			getState().stand();
 	}
 
 	public void update() {
@@ -102,13 +102,11 @@ public class Player {
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
 			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
 			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
-			if (onTheFloor == false) {
-				if(y > 0)
-					setFloor(true);
-			}
-			else if(y <=0){
+			if(y <0 && onTheFloor == true){
 				state.stand();
 			}
+			if(y > 0)
+				setFloor(true);
 		}
 	}
 
@@ -138,6 +136,10 @@ public class Player {
 
 	public void setJumpSpeed(int jumpSpeed) {
 		this.jumpSpeed = jumpSpeed;
+	}
+
+	public State getState() {
+		return state;
 	}
 	
 	

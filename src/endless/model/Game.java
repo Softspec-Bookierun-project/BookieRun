@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import endless.state.StateJumpOne;
+import endless.state.StateJumpTwo;
 
 
 public class Game extends Observable {
@@ -23,11 +24,11 @@ public class Game extends Observable {
 		player = new Player(0, 0);
 		ball = new Ball(1000, 0);
 		
-		floor.add(new Floor(-50, -30, ((int)(Math.random()* 400))+200));
+		floor.add(new Floor(-50, -30, ((int)(Math.random()* 400))+200, (int)(Math.random()* 300)+100));
 		for(int i=1; i< 5;i++){
-			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth()+(int)(Math.random()* 300)+100, -30, ((int)(Math.random()* 700))+200));
+			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth() + floor.get(i-1).getBlank(), -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));
 		}
-		endOfFloor = floor.get(4).getX()+floor.get(4).getWidth() - floor.get(0).getWidth() + 100;
+		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - (floor.get(0).getWidth()+floor.get(0).getBlank());
 		
 	}
 	
@@ -52,36 +53,28 @@ public class Game extends Observable {
 	
 	private void singleFrame() {
 		
-		if((floor.get(useFloor).getX()+floor.get(useFloor).getWidth()) <= -50){
+		if((floor.get(useFloor).getX()+floor.get(useFloor).getWidth())+ floor.get(useFloor).getBlank() -30 <= 0){
 			floor.get(useFloor).setX(endOfFloor);
 			floor.get(useFloor).setWidth((int)(Math.random()* 700)+200);
+			floor.get(useFloor).setBlank((int)(Math.random()* 300)+100);
 			
 			if(useFloor+1 < 5){
-				endOfFloor = floor.get(useFloor).getX()+floor.get(useFloor).getWidth() - floor.get(useFloor+1).getWidth();
+				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(useFloor+1).getWidth() + floor.get(useFloor+1).getBlank());
 				useFloor++;
 			}
 			else{
-				endOfFloor = floor.get(useFloor).getX()+floor.get(useFloor).getWidth() - floor.get(0).getWidth();
+				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(0).getWidth() + floor.get(0).getBlank());
 				System.out.println("======================================");
 				useFloor = 0;
 			}
 		}
-		
-		if(useFloor+1 < 5){
-			if(((player.getX() < (floor.get(useFloor+1).getX()))&&(player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth())) && (player.getY() == 0)){
-				player.setJumpTime(System.currentTimeMillis());
-				player.setJumpY(player.getY());
+		if(((player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth()))){
+			player.setFloor(false);
+			if(!(player.getState() instanceof StateJumpOne) && !(player.getState() instanceof StateJumpTwo)){
 				player.setJumpSpeed(0);
 				player.setState(new StateJumpOne(this.player));
-				player.setFloor(false);
-			}
-		}else {
-			if(((player.getX() < (floor.get(0).getX()))&&(player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth())) && (player.getY() == 0)){
 				player.setJumpTime(System.currentTimeMillis());
 				player.setJumpY(player.getY());
-				player.setJumpSpeed(0);
-				player.setState(new StateJumpOne(this.player));
-				player.setFloor(false);
 			}
 		}
 	
