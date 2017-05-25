@@ -90,7 +90,7 @@ public class Game extends Observable {
 		return player.getHeight();
 	}
 	
-	public int getPlayerHp(){
+	public double getPlayerHp(){
 		return player.getHp();
 	}
 	

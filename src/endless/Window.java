@@ -11,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -92,11 +93,11 @@ public class Window extends JFrame implements Observer {
 					game.getFloorHeight(i));
 		}
 		
-		g.setColor(Color.gray);
-		g.fillRect(width/3, 5, 200, 25);
+//		g.setColor(Color.gray);
+//		g.fillRect(width/3, 5, 200, 25);
 		
 		g.setColor(Color.yellow);
-		g.fillRect(width/3, 5, game.getPlayerHp(), 25);
+		((Graphics2D) g).fill( new Rectangle2D.Double(width/3, 5,game.getPlayerHp(),25));
 		
 		g.setColor(Color.white);
 		g.drawRect(width/3, 5, 200, 25);
