@@ -108,7 +108,7 @@ public class Player {
 	
 	public void update() {
 		// TODO: Complete this
-		if(hp == 0) death();
+		if(hp <= 0 || y < -550) death();
 		hp -= 0.1;
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
   			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
