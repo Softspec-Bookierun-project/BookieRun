@@ -7,6 +7,7 @@ import java.sql.Time;
 import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
+import endless.state.StateHero;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 import endless.state.StateNormal;
@@ -14,7 +15,6 @@ import endless.state.StateNormal;
 
 public class Player {
 
-	
 	public static final int WIDTH = 30;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
@@ -54,6 +54,10 @@ public class Player {
 	public void setFloor(boolean onTheFloor){
 		this.onTheFloor = onTheFloor;
 	}
+	
+	public boolean getIsFloor(){
+		return onTheFloor;
+	}
 
 	public int getX() {
 		return x;
@@ -86,6 +90,10 @@ public class Player {
 	public void setvY(int vY) {
 		this.vY = vY;
 	}
+	
+	public void heroState(){
+		state.hero();
+	}
 
 	public void jumpPressed() {
 		state.pressJump();
@@ -108,17 +116,17 @@ public class Player {
 	
 	public void update() {
 		// TODO: Complete this
+		
 		if(hp == 0) death();
 		hp -= 0.1;
-		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
-  			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
-  			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
- 			if(y <0 && onTheFloor == true){
-  				state.stand();
-  			}
- 			if(y > 0)
- 				setFloor(true);
-  		}
+		
+		state.update();
+//		if (state instanceof StateHero){
+//			if(y!=119){
+//			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
+//  			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
+//			}
+//		}
 	}
 
 	public long getJumpTime() {

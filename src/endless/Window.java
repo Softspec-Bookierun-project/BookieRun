@@ -79,10 +79,9 @@ public class Window extends JFrame implements Observer {
 				game.getPlayerWidth(), 
 				game.getPlayerHeight());
 		
-		g.fillOval(viewOffset + game.getBallX(), 
-				reversedY(viewOffset + game.getBallY() + game.getBallHeight()),
-				game.getBallWidth(), 
-				game.getBallHeight());
+		g.fillOval(game.getsCoinX(),game.getsCoinY(),
+				game.getsCoinWeight(), 
+				game.getsCoinHeight());
 		
 		g.setColor(Color.black);
 		

@@ -8,24 +8,27 @@ import endless.Window;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 
+/**
+ * @author chapmac
+ *
+ */
 public class Game extends Observable {
 
 	public static final int FPS = 60;
 	public static final float GRAVITY = -1500;
 	
 	private Player player;
-	private Ball ball;
+	private SpecialCoin sCoin;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
 	private int useFloor = 0;
 	private int endOfFloor;
-	
 	private boolean running;
 	private Thread gameThread;
 	
 	
 	public Game() {
 		player = new Player(0, 0);
-		ball = new Ball(1000, 0);
+		sCoin = new SpecialCoin(1000,200);
 		
 		floor.add(new Floor(-50, -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));		
 		
@@ -74,16 +77,22 @@ public class Game extends Observable {
 		}
 		if(((player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth()))){
 			 player.setFloor(false);
-			 if(!(player.getState() instanceof StateJumpOne) && !(player.getState() instanceof StateJumpTwo)){
-				player.setJumpSpeed(0);
-	  			player.setState(new StateJumpOne(this.player));
-	  			player.setJumpTime(System.currentTimeMillis());
-  				player.setJumpY(player.getY());
-			 }
+//			 if(!(player.getState() instanceof StateJumpOne) && !(player.getState() instanceof StateJumpTwo)){
+//				player.setJumpSpeed(0);
+//	  			player.setState(new StateJumpOne(this.player));
+//	  			player.setJumpTime(System.currentTimeMillis());
+//  				player.setJumpY(player.getY());
+//			 }
+		}
+		else player.setFloor(true);
+		if(player.getX()+60 == sCoin.getX()){
+			setsCoinY(1000);
+			System.out.println("catch");
+			player.heroState();
 		}
 		
+		sCoin.update();
 		player.update();
-		ball.update();
 		for(int i=0;i<5;i++){
 			floor.get(i).update();
 		}
@@ -92,6 +101,30 @@ public class Game extends Observable {
 		notifyObservers();
 	}
 	
+	public void setsCoinX(int x) {
+		sCoin.setX(x);
+	}
+	
+	public void setsCoinY(int y) {
+		sCoin.setY(y);
+	}
+	
+	public int getsCoinX() {
+		return sCoin.getX();
+	}
+	
+	public int getsCoinY() {
+		return sCoin.getY();
+	}
+	
+	public int getsCoinWeight() {
+		return sCoin.getWidth();
+	}
+	
+	public int getsCoinHeight() {
+		return sCoin.getHeigh();
+	}
+
 	public int getPlayerX() {
 		return player.getX();
 	}
@@ -112,18 +145,6 @@ public class Game extends Observable {
 		return player.getHp();
 	}
 	
-	public int getBallX() {
-		return ball.getX();
-	}
-	
-	public int getBallY() {
-		return ball.getY();
-	}
-	
-	public int getBallWidth() {
-		return ball.getWidth();
-	}
-	
 	public int getFloorHeight(int i) {
 		return floor.get(i).getHeight();
 	}
@@ -138,10 +159,6 @@ public class Game extends Observable {
 	
 	public int getFloorWidth(int i) {
 		return floor.get(i).getWidth();
-	}
-	
-	public int getBallHeight() {
-		return ball.getHeight();
 	}
 	
 	public void jumpPressed() {
