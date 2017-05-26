@@ -5,6 +5,7 @@ import java.security.Timestamp;
 import java.sql.Time;
 
 import endless.Menu;
+import endless.Window;
 import endless.state.State;
 import endless.state.StateCrawl;
 import endless.state.StateJumpOne;

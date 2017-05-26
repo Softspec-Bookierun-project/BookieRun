@@ -7,6 +7,7 @@ import endless.Menu;
 import endless.Window;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
+import sun.awt.windows.WWindowPeer;
 
 public class Game extends Observable {
 
@@ -156,4 +157,7 @@ public class Game extends Observable {
 		player.crawlReleased();
 	}
 	
+	public boolean getPlayerState() {
+		return player.isDeath();
+	}
 }

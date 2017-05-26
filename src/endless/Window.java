@@ -114,6 +114,9 @@ public class Window extends JFrame implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		repaint();
+		if(game.getPlayerState()){
+			dispose();
+		}
 	}
 
 	class Controller extends KeyAdapter {
