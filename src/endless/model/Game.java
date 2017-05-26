@@ -1,23 +1,29 @@
 package endless.model;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 import endless.Menu;
 import endless.Window;
+import endless.model.factory.Coin;
+import endless.model.factory.ShapeFactory;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
+import java.awt.Color;
 
-public class Game extends Observable {
+public class Game extends Observable implements Observer{
 
 	public static final int FPS = 60;
 	public static final float GRAVITY = -1500;
 	
 	private Player player;
-	private Ball ball;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
+	private ArrayList<Coin> coins = new ArrayList<Coin>();
 	private int useFloor = 0;
 	private int endOfFloor;
+	private static final Color colors[] = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.BLACK };
 	
 	private boolean running;
 	private Thread gameThread;
@@ -25,7 +31,9 @@ public class Game extends Observable {
 	
 	public Game() {
 		player = new Player(0, 0);
-		ball = new Ball(1000, 0);
+		
+		coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
+		coins.get(0).addObserver(this);
 		
 		floor.add(new Floor(-50, -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));		
 		
@@ -83,7 +91,11 @@ public class Game extends Observable {
 		}
 		
 		player.update();
-		ball.update();
+		
+		for(int i=0; i<coins.size();i++){
+			coins.get(i).update();
+			
+		}
 		for(int i=0;i<5;i++){
 			floor.get(i).update();
 		}
@@ -94,6 +106,11 @@ public class Game extends Observable {
 	
 	public int getPlayerX() {
 		return player.getX();
+	}
+	
+	public void drawCoin(Graphics g){
+		for(int i=0; i<coins.size();i++)
+			coins.get(i).draw(g);
 	}
 	
 	public int getPlayerY() {
@@ -112,16 +129,16 @@ public class Game extends Observable {
 		return player.getHp();
 	}
 	
-	public int getBallX() {
-		return ball.getX();
+	public int getCoinX() {
+		return coins.get(0).getX();
 	}
 	
-	public int getBallY() {
-		return ball.getY();
+	public int getCoinY() {
+		return coins.get(0).getY();
 	}
 	
-	public int getBallWidth() {
-		return ball.getWidth();
+	public int getCoinWidth() {
+		return coins.get(0).getWidth();
 	}
 	
 	public int getFloorHeight(int i) {
@@ -140,10 +157,6 @@ public class Game extends Observable {
 		return floor.get(i).getWidth();
 	}
 	
-	public int getBallHeight() {
-		return ball.getHeight();
-	}
-	
 	public void jumpPressed() {
 		player.jumpPressed();
 	}
@@ -154,6 +167,35 @@ public class Game extends Observable {
 	
 	public void crawlReleased() {
 		player.crawlReleased();
+	}
+	
+   private static Color getRandomColor() {
+	      return colors[(int)(Math.random()*colors.length)];
+	   }
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		if(arg instanceof String){
+			ShapeFactory.store(coins.get(0));
+			coins.get(0).deleteObserver(this);
+			coins.remove(0);
+		}
+		else if(arg != null){
+			if(((364-((Coin)arg).getY()- 20) < player.getY() + player.getHeight()) && (364 - ((Coin)arg).getY() > player.getY())){
+				coins.get(0).setX(1000);
+				coins.get(0).setY((int)(Math.random() * 200)+100);
+				coins.get(0).setVisible(false);
+				coins.get(0).setCheckDraw(false);
+				ShapeFactory.store((Coin)arg);
+				coins.get(0).deleteObserver(this);
+				coins.remove(0);
+			}
+		}
+		else{
+			coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
+			coins.get(coins.size()-1).addObserver(this);
+		}
 	}
 	
 }
