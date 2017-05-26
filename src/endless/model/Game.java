@@ -28,7 +28,7 @@ public class Game extends Observable {
 	
 	public Game() {
 		player = new Player(0, 0);
-		sCoin = new SpecialCoin(1000,200);
+		sCoin = new SpecialCoin(1000,100);
 		
 		floor.add(new Floor(-50, -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));		
 		
@@ -77,18 +77,13 @@ public class Game extends Observable {
 		}
 		if(((player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth()))){
 			 player.setFloor(false);
-//			 if(!(player.getState() instanceof StateJumpOne) && !(player.getState() instanceof StateJumpTwo)){
-//				player.setJumpSpeed(0);
-//	  			player.setState(new StateJumpOne(this.player));
-//	  			player.setJumpTime(System.currentTimeMillis());
-//  				player.setJumpY(player.getY());
-//			 }
 		}
 		else player.setFloor(true);
 		
-		if(player.getX()+60 == sCoin.getX()){
+		if(player.getX()+60 == sCoin.getX() && (sCoin.getY()+20 >= player.getY() && sCoin.getY() <= player.getY()+20+player.getHeight())){
+			System.out.println("catch y = " +(sCoin.getY()) + " player = " + (player.getY()+20));
 			setsCoinY(1000);
-			System.out.println("catch");
+			
 			player.heroState();
 		}
 		

@@ -15,7 +15,6 @@ public class StateJumpOne extends State{
 		player.setJumpSpeed(600);
 		player.setJumpTime(System.currentTimeMillis());
 		player.setJumpY(player.getY());
-		System.out.println("Jump pressed");
 		StateJumpTwo dou = new StateJumpTwo(player);
 		player.setState(dou);
 	}
@@ -25,8 +24,7 @@ public class StateJumpOne extends State{
 		float t = (System.currentTimeMillis() - player.getJumpTime()) / 1000.0f;
 		player.setY((int) (player.getJumpY() + player.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t));
 		
-		if(player.getY() < 0 && !player.getIsFloor()){
-			System.out.println("not floor");
+		if(player.getY() <= 0 && !player.getIsFloor()){
 			StateDrop dop = new StateDrop(player);
 			player.setState(dop);
 		}
@@ -36,5 +34,16 @@ public class StateJumpOne extends State{
 			player.setState(nor);
 		}
 		
+	}
+	
+	public void hero() {
+		player.setHeight(150);
+		player.setJumpSpeed(800);
+		player.setJumpTime(System.currentTimeMillis());
+		
+		System.out.println("time to hero");
+	
+		StateHero hro = new StateHero(player);
+		player.setState(hro);
 	}
 }

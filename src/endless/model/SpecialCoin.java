@@ -57,7 +57,7 @@ public class SpecialCoin {
 	}
 	
 	public void update(){
-//		x-=10;
+		x-=10;
 	}
 
 }

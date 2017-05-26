@@ -79,7 +79,8 @@ public class Window extends JFrame implements Observer {
 				game.getPlayerWidth(), 
 				game.getPlayerHeight());
 		
-		g.fillOval(game.getsCoinX(),game.getsCoinY(),
+		
+		g.fillOval(game.getsCoinX(),height - (viewOffset + game.getsCoinY()),
 				game.getsCoinWeight(), 
 				game.getsCoinHeight());
 		

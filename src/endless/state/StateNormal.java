@@ -28,22 +28,24 @@ public class StateNormal extends State{
 	
 	@Override
 	public void update() {
-//		System.out.println(player.getIsFloor());
 		if(!player.getIsFloor()){
 			player.setJumpSpeed(0);
 			player.setJumpTime(System.currentTimeMillis());
 			player.setJumpY(player.getY());
+			
 			StateDrop dop = new StateDrop(player);
 			player.setState(dop);
 		}
 	}
-//	public void hero() {
-//		player.setHeight(100);
-//		player.setJumpSpeed(800);
-//		player.setJumpTime(System.currentTimeMillis());
-//	
-//		StateHero hro = new StateHero(player);
-//		player.setState(hro);
-//	}
+	public void hero() {
+		player.setHeight(100);
+		player.setJumpSpeed(800);
+		player.setJumpTime(System.currentTimeMillis());
+		
+		System.out.println("time to hero");
+	
+		StateHero hro = new StateHero(player);
+		player.setState(hro);
+	}
 
 }
