@@ -1,5 +1,5 @@
 package endless;
-import javax.swing.JPanel;
+
 
 public class Main {
 

@@ -3,10 +3,9 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.TimeUnit;
 
-import endless.Menu;
-import endless.Window;
+
+
 import endless.model.factory.Coin;
 import endless.model.factory.Enemy;
 import endless.model.factory.ShapeFactory;
