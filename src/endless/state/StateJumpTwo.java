@@ -12,6 +12,7 @@ public class StateJumpTwo extends State{
 
 	@Override
 	public void pressJump() {
+		
 	}
 
 	@Override

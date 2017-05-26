@@ -28,6 +28,7 @@ public class StateDrop extends State{
 //			player.setState(nor);
 //		}
 		if(player.getY() > 0 && player.getIsFloor()){
+			player.setHeight(Player.NORMAL_HEIGHT);
 			StateJumpTwo fir = new StateJumpTwo(player);
 			player.setState(fir);
 		}

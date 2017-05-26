@@ -92,10 +92,6 @@ public class Player {
 	public void setvY(int vY) {
 		this.vY = vY;
 	}
-	
-	public void heroState(){
-		state.hero();
-	}
 
 	public void jumpPressed() {
 		state.pressJump();
