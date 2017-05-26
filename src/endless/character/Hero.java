@@ -12,7 +12,7 @@ import endless.state.StateNormal;
 
 public class Hero extends Observable implements Character{
 
-	public static final int WIDTH = 175;
+	public static final int WIDTH = 300;
 	public static final int SCORE = 10;
 	public static final int NORMAL_HEIGHT = 350;
 	public static final int CRAWL_HEIGHT = 30;

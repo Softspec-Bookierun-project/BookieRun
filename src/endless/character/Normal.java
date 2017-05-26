@@ -2,6 +2,7 @@ package endless.character;
 
 
 
+import endless.GameOver;
 import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
@@ -10,7 +11,7 @@ import endless.state.StateNormal;
 
 public class Normal implements Character{
 
-	public static final int WIDTH = 30;
+	public static final int WIDTH = 60;
 	public static final int SCORE = 1;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
@@ -106,8 +107,8 @@ public class Normal implements Character{
 
 	public void death(){
 		death = true;
-		Menu m = new Menu();
-		m.setVisible(true);
+		GameOver go = new GameOver();
+		go.setVisible(true);
 	}
 	
 	public void update() {
