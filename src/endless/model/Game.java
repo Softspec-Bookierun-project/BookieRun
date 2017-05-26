@@ -12,6 +12,7 @@ import endless.model.factory.ShapeFactory;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 import java.awt.Color;
+import sun.awt.windows.WWindowPeer;
 
 public class Game extends Observable implements Observer{
 
@@ -198,4 +199,7 @@ public class Game extends Observable implements Observer{
 		}
 	}
 	
+	public boolean getPlayerState() {
+		return player.isDeath();
+	}
 }

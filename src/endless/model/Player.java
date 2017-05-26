@@ -5,6 +5,7 @@ import java.security.Timestamp;
 import java.sql.Time;
 
 import endless.Menu;
+import endless.Window;
 import endless.state.State;
 import endless.state.StateCrawl;
 import endless.state.StateJumpOne;
@@ -108,7 +109,7 @@ public class Player {
 	
 	public void update() {
 		// TODO: Complete this
-		if(hp == 0) death();
+		if(hp <= 0 || y < -550) death();
 		hp -= 0.1;
 		if (state instanceof StateJumpOne || state instanceof StateJumpTwo || onTheFloor == false) {
   			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
