@@ -37,15 +37,5 @@ public class StateNormal extends State{
 			player.setState(dop);
 		}
 	}
-	public void hero() {
-		player.setHeight(100);
-		player.setJumpSpeed(800);
-		player.setJumpTime(System.currentTimeMillis());
-		
-		System.out.println("time to hero");
-	
-		StateHero hro = new StateHero(player);
-		player.setState(hro);
-	}
 
 }

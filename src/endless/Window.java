@@ -70,13 +70,13 @@ public class Window extends JFrame implements Observer {
 	
 	private void paintBackground(Graphics g) {
 		
-		try {                
-	          image = ImageIO.read(new File("../EndlessRunner/res/stage.jpg"));
-	       } catch (IOException ex) {
-	            // handle exception...
-	       }
-		
-		g.drawImage(image, 0, 0, null);
+//		try {                
+//	          image = ImageIO.read(new File("../EndlessRunner/res/stage.jpg"));
+//	       } catch (IOException ex) {
+//	            // handle exception...
+//	       }
+//		
+//		g.drawImage(image, 0, 0, null);
 	}
 
 	private void drawObject(Graphics g) {

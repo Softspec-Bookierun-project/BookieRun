@@ -5,7 +5,6 @@ package endless.model;
 import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
-import endless.state.StateHero;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 import endless.state.StateNormal;
