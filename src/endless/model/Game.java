@@ -14,6 +14,7 @@ import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 import java.awt.Color;
 
+
 public class Game extends Observable implements Observer{
 
 	public static final int FPS = 60;
@@ -27,7 +28,6 @@ public class Game extends Observable implements Observer{
 	private int useFloor = 0;
 	private int endOfFloor;
 	private static final Color colors[] = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.MAGENTA };
-	
 	private boolean running;
 	private Thread gameThread;
 	
@@ -88,14 +88,17 @@ public class Game extends Observable implements Observer{
 		}
 		if(((player.getX() > (floor.get(useFloor).getX())+ floor.get(useFloor).getWidth()))){
 			 player.setFloor(false);
-			 if(!(player.getState() instanceof StateJumpOne) && !(player.getState() instanceof StateJumpTwo)){
-				player.setJumpSpeed(0);
-	  			player.setState(new StateJumpOne(this.player));
-	  			player.setJumpTime(System.currentTimeMillis());
-  				player.setJumpY(player.getY());
-			 }
+		}
+		else player.setFloor(true);
+		
+		if(player.getX()+60 == sCoin.getX() && (sCoin.getY()+20 >= player.getY() && sCoin.getY() <= player.getY()+20+player.getHeight())){
+			System.out.println("catch y = " +(sCoin.getY()) + " player = " + (player.getY()+20));
+			setsCoinY(1000);
+			
+			player.heroState();
 		}
 		
+		sCoin.update();
 		player.update();
 		
 		enemy.update();
@@ -111,6 +114,30 @@ public class Game extends Observable implements Observer{
 		notifyObservers();
 	}
 	
+	public void setsCoinX(int x) {
+		sCoin.setX(x);
+	}
+	
+	public void setsCoinY(int y) {
+		sCoin.setY(y);
+	}
+	
+	public int getsCoinX() {
+		return sCoin.getX();
+	}
+	
+	public int getsCoinY() {
+		return sCoin.getY();
+	}
+	
+	public int getsCoinWeight() {
+		return sCoin.getWidth();
+	}
+	
+	public int getsCoinHeight() {
+		return sCoin.getHeigh();
+	}
+
 	public int getPlayerX() {
 		return player.getX();
 	}

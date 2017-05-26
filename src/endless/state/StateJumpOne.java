@@ -1,5 +1,6 @@
 package endless.state;
 
+import endless.model.Game;
 import endless.model.Player;
 
 public class StateJumpOne extends State{
@@ -14,21 +15,35 @@ public class StateJumpOne extends State{
 		player.setJumpSpeed(600);
 		player.setJumpTime(System.currentTimeMillis());
 		player.setJumpY(player.getY());
-		
 		StateJumpTwo dou = new StateJumpTwo(player);
 		player.setState(dou);
 	}
-
+	
 	@Override
-	public void pressCrawl() {
-		System.out.println("Can't crawl");
+	public void update() {
+		float t = (System.currentTimeMillis() - player.getJumpTime()) / 1000.0f;
+		player.setY((int) (player.getJumpY() + player.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t));
+		
+		if(player.getY() <= 0 && !player.getIsFloor()){
+			StateDrop dop = new StateDrop(player);
+			player.setState(dop);
+		}
+		if(player.getY() <= 0 && player.getIsFloor()){
+			player.setY(0);
+			StateNormal nor = new StateNormal(player);
+			player.setState(nor);
+		}
+		
 	}
-
-	@Override
-	public void stand() {
-		player.setY(0);
-		StateNormal nor = new StateNormal(player);
-		player.setState(nor);
+	
+	public void hero() {
+		player.setHeight(150);
+		player.setJumpSpeed(800);
+		player.setJumpTime(System.currentTimeMillis());
+		
+		System.out.println("time to hero");
+	
+		StateHero hro = new StateHero(player);
+		player.setState(hro);
 	}
-
 }

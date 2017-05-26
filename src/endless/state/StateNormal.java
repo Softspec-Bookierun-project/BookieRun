@@ -25,5 +25,27 @@ public class StateNormal extends State{
 		StateCrawl cra = new StateCrawl(player);
 		player.setState(cra);
 	}
+	
+	@Override
+	public void update() {
+		if(!player.getIsFloor()){
+			player.setJumpSpeed(0);
+			player.setJumpTime(System.currentTimeMillis());
+			player.setJumpY(player.getY());
+			
+			StateDrop dop = new StateDrop(player);
+			player.setState(dop);
+		}
+	}
+	public void hero() {
+		player.setHeight(100);
+		player.setJumpSpeed(800);
+		player.setJumpTime(System.currentTimeMillis());
+		
+		System.out.println("time to hero");
+	
+		StateHero hro = new StateHero(player);
+		player.setState(hro);
+	}
 
 }

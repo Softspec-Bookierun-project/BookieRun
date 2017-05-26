@@ -16,4 +16,10 @@ public abstract class State {
 	
 	public void stand(){ }
 	
+	public void hero(){ }
+	
+	public void update(){ }
+	
+	public void drop(){ }
+	
 }
