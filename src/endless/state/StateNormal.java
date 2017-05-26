@@ -6,7 +6,6 @@ public class StateNormal extends State{
 
 	public StateNormal(Character player) {
 		super(player);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
