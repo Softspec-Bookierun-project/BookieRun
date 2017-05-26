@@ -1,11 +1,8 @@
 package endless.model;
 
 
-import java.security.Timestamp;
-import java.sql.Time;
 
 import endless.Menu;
-import endless.Window;
 import endless.state.State;
 import endless.state.StateCrawl;
 import endless.state.StateJumpOne;
@@ -38,7 +35,6 @@ public class Player {
 	}
 
 	// TODO: Add variables you need.
-	private boolean crawling;
 	private long jumpTime;
 	private int jumpY;
 

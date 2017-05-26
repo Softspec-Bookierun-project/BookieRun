@@ -3,16 +3,15 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.TimeUnit;
 
-import endless.Menu;
-import endless.Window;
+
+
 import endless.model.factory.Coin;
 import endless.model.factory.ShapeFactory;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
 import java.awt.Color;
-import sun.awt.windows.WWindowPeer;
+
 
 public class Game extends Observable implements Observer{
 
