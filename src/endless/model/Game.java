@@ -20,6 +20,7 @@ public class Game extends Observable implements Observer{
 
 	public static final int FPS = 60;
 	public static final float GRAVITY = -1500;
+	private long targetTime = 1000/FPS;
 	
 	private Character player;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
@@ -58,14 +59,22 @@ public class Game extends Observable implements Observer{
 		gameThread = new Thread() {
 			@Override
 			public void run() {
+				long start, elapsed, wait;
 				super.run();
 				while(running) {
+					start = System.nanoTime();
 					singleFrame();
+					elapsed = System.nanoTime() - start;
+					wait = targetTime - elapsed / 1000000;
+					if(wait <= 0){
+						wait = 10;
+					}
+					
 					if(player.isDeath()) {
 						break;
 					}
 					try {
-						Thread.sleep(1000 / FPS);
+						Thread.sleep(wait);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}	
