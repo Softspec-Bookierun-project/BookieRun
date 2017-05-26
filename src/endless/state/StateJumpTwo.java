@@ -1,18 +1,17 @@
 package endless.state;
 
+import endless.character.Character;
 import endless.model.Game;
-import endless.model.Player;
 
 public class StateJumpTwo extends State{
 
-	public StateJumpTwo(Player player) {
+	public StateJumpTwo(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void pressJump() {
-		
 	}
 
 	@Override
@@ -23,6 +22,7 @@ public class StateJumpTwo extends State{
 	public void update() {
 		float t = (System.currentTimeMillis() - player.getJumpTime()) / 1000.0f;
 		player.setY((int) (player.getJumpY() + player.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t));
+		
 		if(player.getY() <= 0 && !player.getIsFloor()){
 			StateDrop dop = new StateDrop(player);
 			player.setState(dop);

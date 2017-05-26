@@ -131,4 +131,10 @@ public class Enemy extends Observable implements Shapes{
             return path;
         }
 
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return Color.BLACK;
+	}
+
 }

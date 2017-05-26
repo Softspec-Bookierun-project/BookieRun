@@ -1,12 +1,12 @@
 package endless.state;
 
-import endless.model.Player;
+import endless.character.Character;
 
 public abstract class State {
 
-	protected Player player;
+	protected Character player;
 	
-	public State(Player player) {
+	public State(Character player) {
 		this.player = player;
 	}
 	
@@ -15,6 +15,8 @@ public abstract class State {
 	public void pressCrawl() { }
 	
 	public void stand(){ }
+	
+	public void hero(){ }
 	
 	public void update(){ }
 	

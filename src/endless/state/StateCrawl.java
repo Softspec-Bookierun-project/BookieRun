@@ -1,35 +1,38 @@
 package endless.state;
 
-import endless.model.Player;
+import endless.character.Character;
 
 public class StateCrawl extends State{
 
-	public StateCrawl(Player player) {
+	public StateCrawl(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void pressJump() {
+		System.out.println("Can't Jump");
 	}
 
 	@Override
 	public void pressCrawl() {
+		System.out.println("already crawl");
 	}
 	
 	@Override
 	public void stand() {
-		player.setHeight(Player.NORMAL_HEIGHT);
+		System.out.println("stand");
+		player.setHeight(player.getNormalHeight());
 		StateNormal nor = new StateNormal(player);
 		player.setState(nor);
 	}
 	
 	public void update(){
 		if(!player.getIsFloor()){
-//			player.setHeight(Player.NORMAL_HEIGHT);
-			StateNormal nor = new StateNormal(player);
-			player.setState(nor);
-		}
+		 //		player.setHeight(Player.NORMAL_HEIGHT);
+		 		StateNormal nor = new StateNormal(player);
+		 		player.setState(nor);
+		 }
 	}
 
 }

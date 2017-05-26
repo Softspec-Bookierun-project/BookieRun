@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-
-
+import endless.character.Character;
+import endless.character.Hero;
+import endless.character.Normal;
 import endless.model.factory.Coin;
 import endless.model.factory.Enemy;
 import endless.model.factory.ShapeFactory;
@@ -19,9 +20,8 @@ public class Game extends Observable implements Observer{
 
 	public static final int FPS = 60;
 	public static final float GRAVITY = -1500;
-	private long targetTime = 1000/FPS;
 	
-	private Player player;
+	private Character player;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
 	private ArrayList<Coin> coins = new ArrayList<Coin>();
 	private Enemy enemy;
@@ -31,10 +31,13 @@ public class Game extends Observable implements Observer{
 	private static final Color colors[] = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.MAGENTA };
 	private boolean running;
 	private Thread gameThread;
+	private Color stack = Color.BLUE;
+	private int score = 0;
+	private int countDown = 0;
 	
 	
 	public Game() {
-		player = new Player(0, 0);
+		player = new Normal(0, 0);
 		
 		coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
 		coins.get(0).addObserver(this);
@@ -55,22 +58,14 @@ public class Game extends Observable implements Observer{
 		gameThread = new Thread() {
 			@Override
 			public void run() {
-				long start, elapsed, wait;
 				super.run();
 				while(running) {
-					start = System.nanoTime();
 					singleFrame();
-					elapsed = System.nanoTime() - start;
-					wait = targetTime - elapsed / 1000000;
-					if(wait <= 0){
-						wait = 10;
-					}
-					
 					if(player.isDeath()) {
 						break;
 					}
 					try {
-						Thread.sleep(wait);
+						Thread.sleep(1000 / FPS);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}	
@@ -100,6 +95,11 @@ public class Game extends Observable implements Observer{
 		}
 		else player.setFloor(true);
 		
+		if(countDown == 3){
+			Hero hero = new Hero(0);
+			hero.addObserver(this);
+			this.player = hero;
+		}
 		
 		player.update();
 		
@@ -182,7 +182,7 @@ public class Game extends Observable implements Observer{
 	}
 	
 	private static Color getRandomColor() {
-	      return colors[(int)(Math.random()*colors.length)];
+	    return colors[(int)(Math.random()*colors.length)];
 	}
 	
 	public void drawEnemy(Graphics g){
@@ -193,24 +193,44 @@ public class Game extends Observable implements Observer{
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
 		if(arg instanceof String){
-			ShapeFactory.store(coins.get(0));
-			coins.get(0).deleteObserver(this);
-			coins.remove(0);
+			if(arg.equals("delete")){
+				ShapeFactory.store(coins.get(0));
+				coins.get(0).deleteObserver(this);
+				coins.remove(0);
+			}
+			else if(arg.equals("return")){
+				this.player = (new Normal(0,0));
+			}
 		}
 		else if(arg != null){
 			if(((364-((Shapes)arg).getY()- ((Shapes)arg).getWidth()) < player.getY() + player.getHeight()) && (364 - ((Shapes)arg).getY() > player.getY())){
-				if(((Shapes)arg) instanceof Coin){
-					coins.get(0).setX(1000);
-					coins.get(0).setY((int)(Math.random() * 200)+100);
-					coins.get(0).setVisible(false);
-					coins.get(0).setCheckDraw(false);
-					ShapeFactory.store((Coin)arg);
-					coins.get(0).deleteObserver(this);
-					coins.remove(0);
-				}
-				else{
-					player.setHp(player.getHp()-20);
-					enemy.setHit(true);
+				if(((Shapes)arg).getX()-50 < player.getX()+player.getWidth() && ((Shapes)arg).getX()-50 + ((Shapes)arg).getWidth() > player.getX()){
+					if(((Shapes)arg) instanceof Coin){
+						if(((Shapes)arg).getColor().equals(stack)){
+							countDown++;
+						}
+						else{
+							countDown = 1;
+							stack = ((Shapes)arg).getColor();
+						}
+						score += player.getScore();
+						coins.get(0).setX(1000);
+						coins.get(0).setY((int)(Math.random() * 200)+100);
+						coins.get(0).setVisible(false);
+						coins.get(0).setCheckDraw(false);
+						ShapeFactory.store((Coin)arg);
+						coins.get(0).deleteObserver(this);
+						coins.remove(0);
+					}
+					else{
+						if(player instanceof Normal){
+							player.setHp(player.getHp()-20);
+							enemy.setHit(true);
+						}
+						else{
+							enemy.setX(1000);
+						}
+					}
 				}
 			}
 		}
