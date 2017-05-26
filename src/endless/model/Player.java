@@ -59,6 +59,10 @@ public class Player {
 	public int getX() {
 		return x;
 	}
+	
+	public void setHp(double hp) {
+		this.hp = hp;
+	}
 
 	public int getY() {
 		return y;

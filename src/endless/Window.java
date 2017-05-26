@@ -80,6 +80,7 @@ public class Window extends JFrame implements Observer {
 				game.getPlayerHeight());
 		
 		game.drawCoin(g);
+		game.drawEnemy(g);
 			
 		g.setColor(Color.black);
 		for(int i=0;i<5;i++){

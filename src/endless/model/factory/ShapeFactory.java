@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.awt.Color;
 
 public class ShapeFactory {
-   private static HashMap<Color, ArrayList<Shape>> poolCoin = new HashMap();
+   private static HashMap<Color, ArrayList<Shapes>> poolCoin = new HashMap();
 
-   public static Shape getCoin(Color color) {
+   public static Shapes getCoin(Color color) {
 	  if(poolCoin.get(color) == null)
-		  poolCoin.put(color,new ArrayList<Shape>());
+		  poolCoin.put(color,new ArrayList<Shapes>());
 	   
 	  Coin coin;
 	  int size = poolCoin.get(color).size();
