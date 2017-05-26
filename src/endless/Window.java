@@ -5,12 +5,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,6 +26,7 @@ public class Window extends JFrame implements Observer {
 	
 	
 	private JPanel drawPanel;
+	private Image image;
 
 	private Game game;
 	
@@ -64,19 +69,42 @@ public class Window extends JFrame implements Observer {
 	
 	
 	private void paintBackground(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(0, 0, Menu.WIDTH, Menu.HEIGHT);
+		
+		try {                
+	          image = ImageIO.read(new File("../EndlessRunner/res/stage.jpg"));
+	       } catch (IOException ex) {
+	            // handle exception...
+	       }
+		
+		g.drawImage(image, 0, 0, null);
 	}
 
 	private void drawObject(Graphics g) {
 		g.setColor(Color.blue);
-		g.fillRect(Menu.VIEWOFFSET + game.getPlayerX(), 
+		
+		try {
+			image = ImageIO.read(new File("../EndlessRunner/res/cookie.png"));
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		g.drawImage(image,Menu.VIEWOFFSET + game.getPlayerX(), 
 				reversedY(Menu.VIEWOFFSET + game.getPlayerY() + game.getPlayerHeight()),
 				game.getPlayerWidth(), 
-				game.getPlayerHeight());
+				game.getPlayerHeight(), null);
+		
+		
 		
 		game.drawCoin(g);
 		game.drawEnemy(g);
+
+		
+//		try {
+//			image = ImageIO.read(new File("../EndlessRunner/res/block.png"));
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		}
+//		
+
 			
 		g.setColor(Color.black);
 		for(int i=0;i<5;i++){
@@ -84,20 +112,27 @@ public class Window extends JFrame implements Observer {
 					reversedY(Menu.VIEWOFFSET + game.getFloorY(i) + game.getFloorHeight(i)),
 					game.getFloorWidth(i), 
 					game.getFloorHeight(i));
+			
+			
 		}
 		
-//		g.setColor(Color.gray);
-//		g.fillRect(width/3, 5, 200, 25);
+		g.setColor(new Color(0, 0, 0, 80));
+		g.fillRect(68, 50, 200, 15);
+
 		
-		g.setColor(Color.yellow);
-		((Graphics2D) g).fill( new Rectangle2D.Double(Menu.WIDTH/3, 5,game.getPlayerHp(),25));
+		
 		
 		g.setColor(Color.white);
-		g.drawRect(Menu.WIDTH/3, 5, 200, 25);
+		g.drawRect(68, 50, 200, 15);
 		
-		g.setColor(Color.black);
-		g.setFont(new Font("TimesRoman", Font.BOLD, 20));
-		g.drawString("hp", (Menu.WIDTH/3)-40, 20);
+	
+		try {                
+	          image = ImageIO.read(new File("../EndlessRunner/res/bar.jpg"));
+	       } catch (IOException ex) {
+	            // handle exception...
+	       }
+		
+		g.drawImage(image, 68, 50, (int)game.getPlayerHp(),15, null);
 	}
 
 	private int reversedY(int y) {

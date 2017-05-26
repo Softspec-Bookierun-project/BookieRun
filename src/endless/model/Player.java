@@ -13,7 +13,9 @@ import endless.state.StateNormal;
 
 public class Player {
 
-	public static final int WIDTH = 30;
+
+	
+	public static final int WIDTH = 60;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
 	public static final int HEALTH = 200;
