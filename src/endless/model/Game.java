@@ -38,7 +38,7 @@ public class Game extends Observable implements Observer{
 	
 	
 	public Game() {
-		player = new Normal(0, 0);
+		player = new Normal(0, 0, 0);
 		
 		coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
 		coins.get(0).addObserver(this);
@@ -105,10 +105,12 @@ public class Game extends Observable implements Observer{
 		else player.setFloor(true);
 		
 		if(countDown == 3){
-			Hero hero = new Hero(0);
+			Hero hero = new Hero(0,player.getScores());
 			hero.addObserver(this);
 			this.player = hero;
 		}
+		
+		System.out.println(player.getScores());
 		
 		player.update();
 		
@@ -208,7 +210,7 @@ public class Game extends Observable implements Observer{
 				coins.remove(0);
 			}
 			else if(arg.equals("return")){
-				this.player = (new Normal(0,0));
+				this.player = (new Normal(0,0,player.getScores()));
 			}
 		}
 		else if(arg != null){
@@ -222,7 +224,7 @@ public class Game extends Observable implements Observer{
 							countDown = 1;
 							stack = ((Shapes)arg).getColor();
 						}
-						score += player.getScore();
+						player.plusScore();
 						coins.get(0).setX(1000);
 						coins.get(0).setY((int)(Math.random() * 200)+100);
 						coins.get(0).setVisible(false);

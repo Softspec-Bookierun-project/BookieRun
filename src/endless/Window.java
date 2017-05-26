@@ -82,29 +82,19 @@ public class Window extends JFrame implements Observer {
 	private void drawObject(Graphics g) {
 		g.setColor(Color.blue);
 		
+
 		try {
 			image = ImageIO.read(new File("../EndlessRunner/res/images/cookie.png"));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-		g.drawImage(image,Menu.VIEWOFFSET + game.getPlayerX(), 
+		g.drawImage(image,Menu.VIEWOFFSET + game.getPlayerX(),
 				reversedY(Menu.VIEWOFFSET + game.getPlayerY() + game.getPlayerHeight()),
 				game.getPlayerWidth(), 
-				game.getPlayerHeight(), null);
-		
-		
+				game.getPlayerHeight());
 		
 		game.drawCoin(g);
 		game.drawEnemy(g);
-
-		
-//		try {
-//			image = ImageIO.read(new File("../EndlessRunner/res/block.png"));
-//		} catch (IOException ex) {
-//			ex.printStackTrace();
-//		}
-//		
-
 			
 		g.setColor(Color.black);
 		for(int i=0;i<5;i++){
@@ -119,20 +109,19 @@ public class Window extends JFrame implements Observer {
 		g.setColor(new Color(0, 0, 0, 80));
 		g.fillRect(68, 50, 200, 15);
 
-		
-		
-		
+		g.setColor(Color.gray);
 		g.setColor(Color.white);
 		g.drawRect(68, 50, 200, 15);
 		
 	
+
 		try {                
 	          image = ImageIO.read(new File("../EndlessRunner/res/images/bar.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
 	       }
 		
-		g.drawImage(image, 68, 50, (int)game.getPlayerHp(),15, null);
+		g.drawRect(68, 50, (int)game.getPlayerHp(),15);
 	}
 
 	private int reversedY(int y) {
