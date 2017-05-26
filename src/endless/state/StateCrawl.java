@@ -1,10 +1,10 @@
 package endless.state;
 
-import endless.model.Player;
+import endless.character.Character;
 
 public class StateCrawl extends State{
 
-	public StateCrawl(Player player) {
+	public StateCrawl(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}
@@ -22,7 +22,7 @@ public class StateCrawl extends State{
 	@Override
 	public void stand() {
 		System.out.println("stand");
-		player.setHeight(Player.NORMAL_HEIGHT);
+		player.setHeight(player.getNormalHeight());
 		StateNormal nor = new StateNormal(player);
 		player.setState(nor);
 	}

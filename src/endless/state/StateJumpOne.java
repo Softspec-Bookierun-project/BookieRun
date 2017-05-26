@@ -1,18 +1,18 @@
 package endless.state;
 
+import endless.character.Character;
 import endless.model.Game;
-import endless.model.Player;
 
 public class StateJumpOne extends State{
 
-	public StateJumpOne(Player player) {
+	public StateJumpOne(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void pressJump() {
-		player.setJumpSpeed(600);
+		player.setJumpSpeed(player.getjumppy());
 		player.setJumpTime(System.currentTimeMillis());
 		player.setJumpY(player.getY());
 		StateJumpTwo dou = new StateJumpTwo(player);
@@ -34,16 +34,5 @@ public class StateJumpOne extends State{
 			player.setState(nor);
 		}
 		
-	}
-	
-	public void hero() {
-		player.setHeight(150);
-		player.setJumpSpeed(800);
-		player.setJumpTime(System.currentTimeMillis());
-		
-		System.out.println("time to hero");
-	
-		StateHero hro = new StateHero(player);
-		player.setState(hro);
 	}
 }

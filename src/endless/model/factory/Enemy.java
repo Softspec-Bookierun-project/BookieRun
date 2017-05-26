@@ -67,10 +67,6 @@ public class Enemy extends Observable implements Shapes{
 	public void update() {
 		// TODO: Complete this
 		this.x -= vY;
-		if(this.x < 100 && this.x > 0 && this.hit == false){
-			setChanged();
-			notifyObservers(this);
-		}
 		if(this.x < -50){
 			int k = (int)(Math.random() * 3);
 			this.hit = false;
@@ -81,6 +77,10 @@ public class Enemy extends Observable implements Shapes{
 			else
 				this.y = 200;
 			this.x = 1000;
+		}
+		else if(hit == false){
+			setChanged();
+			notifyObservers(this);
 		}
 		
 	}
@@ -130,5 +130,11 @@ public class Enemy extends Observable implements Shapes{
             path.closePath();
             return path;
         }
+
+	@Override
+	public Color getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

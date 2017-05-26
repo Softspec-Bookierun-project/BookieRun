@@ -1,17 +1,17 @@
 package endless.state;
 
-import endless.model.Player;
+import endless.character.Character;
 
 public class StateNormal extends State{
 
-	public StateNormal(Player player) {
+	public StateNormal(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void pressJump() {
-		player.setJumpSpeed(600);
+		player.setJumpSpeed(player.getjumppy());
 		player.setJumpTime(System.currentTimeMillis());
 		player.setJumpY(player.getY());
 		
@@ -21,7 +21,7 @@ public class StateNormal extends State{
 
 	@Override
 	public void pressCrawl() {
-		player.setHeight(Player.CRAWL_HEIGHT);
+		player.setHeight(player.getCrawlHeight());
 		StateCrawl cra = new StateCrawl(player);
 		player.setState(cra);
 	}
@@ -36,16 +36,6 @@ public class StateNormal extends State{
 			StateDrop dop = new StateDrop(player);
 			player.setState(dop);
 		}
-	}
-	public void hero() {
-		player.setHeight(100);
-		player.setJumpSpeed(800);
-		player.setJumpTime(System.currentTimeMillis());
-		
-		System.out.println("time to hero");
-	
-		StateHero hro = new StateHero(player);
-		player.setState(hro);
 	}
 
 }

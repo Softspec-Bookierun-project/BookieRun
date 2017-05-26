@@ -1,11 +1,11 @@
 package endless.state;
 
+import endless.character.Character;
 import endless.model.Game;
-import endless.model.Player;
 
 public class StateDrop extends State{
 
-	public StateDrop(Player player) {
+	public StateDrop(Character player) {
 		super(player);
 	}
 	

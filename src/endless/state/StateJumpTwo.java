@@ -1,11 +1,11 @@
 package endless.state;
 
+import endless.character.Character;
 import endless.model.Game;
-import endless.model.Player;
 
 public class StateJumpTwo extends State{
 
-	public StateJumpTwo(Player player) {
+	public StateJumpTwo(Character player) {
 		super(player);
 		// TODO Auto-generated constructor stub
 	}

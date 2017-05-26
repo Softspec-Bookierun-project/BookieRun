@@ -1,22 +1,21 @@
-package endless.model;
+package endless.character;
 
 
 
 import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
-import endless.state.StateHero;
-import endless.state.StateJumpOne;
-import endless.state.StateJumpTwo;
 import endless.state.StateNormal;
 
 
-public class Player {
+public class Normal implements Character{
 
 	public static final int WIDTH = 30;
+	public static final int SCORE = 1;
 	public static final int NORMAL_HEIGHT = 60;
 	public static final int CRAWL_HEIGHT = 30;
 	public static final int HEALTH = 200;
+	public static final int JUMPPY = 600;
 
 	private int x;
 	private int y;
@@ -38,7 +37,7 @@ public class Player {
 	private long jumpTime;
 	private int jumpY;
 
-	public Player(int x, int y) {
+	public Normal(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.hp = HEALTH;
@@ -91,10 +90,6 @@ public class Player {
 	public void setvY(int vY) {
 		this.vY = vY;
 	}
-	
-	public void heroState(){
-		state.hero();
-	}
 
 	public void jumpPressed() {
 		state.pressJump();
@@ -121,12 +116,6 @@ public class Player {
 		hp -= 0.1;
 		
 		state.update();
-//		if (state instanceof StateHero){
-//			if(y!=119){
-//			float t = (System.currentTimeMillis() - getJumpTime()) / 1000.0f;
-//  			y = (int) (getJumpY() + this.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t);
-//			}
-//		}
 	}
 
 	public long getJumpTime() {
@@ -168,4 +157,29 @@ public class Player {
 	public void setJumpSpeed(int jumpSpeed) {
   		this.jumpSpeed = jumpSpeed;
   	}
+
+	@Override
+	public int getCrawlHeight() {
+		// TODO Auto-generated method stub
+		return CRAWL_HEIGHT;
+	}
+
+	@Override
+	public int getNormalHeight() {
+		// TODO Auto-generated method stub
+		return NORMAL_HEIGHT;
+	}
+
+	@Override
+	public int getScore() {
+		// TODO Auto-generated method stub
+		return SCORE;
+	}
+
+	@Override
+	public int getjumppy() {
+		// TODO Auto-generated method stub
+		return JUMPPY;
+	}
+	
 }

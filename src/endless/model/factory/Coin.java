@@ -85,10 +85,6 @@ public class Coin extends Observable implements Shapes{
 				notifyObservers();
 			}
 		}
-		if(this.x < 80 && this.x > 50){
-			setChanged();
-			notifyObservers(this);
-		}
 		if(this.x < -50){
 			this.x = 1000;
 			this.y = (int)(Math.random() * 200)+100;
@@ -96,6 +92,10 @@ public class Coin extends Observable implements Shapes{
 			this.checkDraw = false;
 			setChanged();
 			notifyObservers("delete");
+		}
+		else{
+			setChanged();
+			notifyObservers(this);
 		}
 		
 	}

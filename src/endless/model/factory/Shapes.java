@@ -1,5 +1,6 @@
 package endless.model.factory;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public interface Shapes {
@@ -8,4 +9,5 @@ public interface Shapes {
 	   public int getY();
 	   public int getX();
 	   public int getWidth();
+	   public Color getColor();
 }
