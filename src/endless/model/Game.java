@@ -91,14 +91,7 @@ public class Game extends Observable implements Observer{
 		}
 		else player.setFloor(true);
 		
-		if(player.getX()+60 == sCoin.getX() && (sCoin.getY()+20 >= player.getY() && sCoin.getY() <= player.getY()+20+player.getHeight())){
-			System.out.println("catch y = " +(sCoin.getY()) + " player = " + (player.getY()+20));
-			setsCoinY(1000);
-			
-			player.heroState();
-		}
 		
-		sCoin.update();
 		player.update();
 		
 		enemy.update();
@@ -112,30 +105,6 @@ public class Game extends Observable implements Observer{
 		
 		setChanged();
 		notifyObservers();
-	}
-	
-	public void setsCoinX(int x) {
-		sCoin.setX(x);
-	}
-	
-	public void setsCoinY(int y) {
-		sCoin.setY(y);
-	}
-	
-	public int getsCoinX() {
-		return sCoin.getX();
-	}
-	
-	public int getsCoinY() {
-		return sCoin.getY();
-	}
-	
-	public int getsCoinWeight() {
-		return sCoin.getWidth();
-	}
-	
-	public int getsCoinHeight() {
-		return sCoin.getHeigh();
 	}
 
 	public int getPlayerX() {
