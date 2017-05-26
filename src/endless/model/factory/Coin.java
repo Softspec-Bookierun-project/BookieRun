@@ -9,7 +9,7 @@ import java.awt.Color;
 
 
 
-public class Coin extends Observable implements Shape{
+public class Coin extends Observable implements Shapes{
 
 	public static final int WIDTH = 20;
 
@@ -20,7 +20,6 @@ public class Coin extends Observable implements Shape{
 	private Color color;
 	private boolean visible = true;
 	private boolean checkDraw = false;
-	private int count = 0;
 	
 	// TODO: Add variables you need.
 
