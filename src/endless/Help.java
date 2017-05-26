@@ -49,7 +49,7 @@ public class Help extends JFrame{
 	
 	
 		try {                
-	          image = ImageIO.read(new File("../EndlessRunner/res/Help.jpg"));
+	          image = ImageIO.read(new File("../EndlessRunner/res/images/Help.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
 	       }

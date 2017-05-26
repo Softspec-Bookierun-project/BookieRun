@@ -83,7 +83,7 @@ public class Window extends JFrame implements Observer {
 		g.setColor(Color.blue);
 		
 		try {
-			image = ImageIO.read(new File("../EndlessRunner/res/cookie.png"));
+			image = ImageIO.read(new File("../EndlessRunner/res/images/cookie.png"));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -127,7 +127,7 @@ public class Window extends JFrame implements Observer {
 		
 	
 		try {                
-	          image = ImageIO.read(new File("../EndlessRunner/res/bar.jpg"));
+	          image = ImageIO.read(new File("../EndlessRunner/res/images/bar.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
 	       }
