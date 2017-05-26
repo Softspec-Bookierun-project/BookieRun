@@ -85,6 +85,7 @@ public class Game extends Observable {
 //			 }
 		}
 		else player.setFloor(true);
+		
 		if(player.getX()+60 == sCoin.getX()){
 			setsCoinY(1000);
 			System.out.println("catch");

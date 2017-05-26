@@ -25,11 +25,8 @@ public class StateJumpOne extends State{
 		float t = (System.currentTimeMillis() - player.getJumpTime()) / 1000.0f;
 		player.setY((int) (player.getJumpY() + player.getJumpSpeed() * t + 0.5f * Game.GRAVITY * t * t));
 		
-		if(player.getY() <= 1 && !player.getIsFloor()){
+		if(player.getY() < 0 && !player.getIsFloor()){
 			System.out.println("not floor");
-			player.setJumpSpeed(0);
-			player.setJumpTime(System.currentTimeMillis());
-			player.setJumpY(player.getY());
 			StateDrop dop = new StateDrop(player);
 			player.setState(dop);
 		}
@@ -38,5 +35,6 @@ public class StateJumpOne extends State{
 			StateNormal nor = new StateNormal(player);
 			player.setState(nor);
 		}
+		
 	}
 }
