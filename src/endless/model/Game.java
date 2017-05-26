@@ -95,7 +95,6 @@ public class Game extends Observable implements Observer{
   				useFloor++;
  			} else{
  				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(0).getWidth() + floor.get(0).getBlank());
-   				System.out.println("======================================");
    				useFloor = 0;
    			}
 		}
@@ -109,8 +108,6 @@ public class Game extends Observable implements Observer{
 			hero.addObserver(this);
 			this.player = hero;
 		}
-		
-		System.out.println(player.getScores());
 		
 		player.update();
 		
@@ -202,7 +199,6 @@ public class Game extends Observable implements Observer{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		if(arg instanceof String){
 			if(arg.equals("delete")){
 				ShapeFactory.store(coins.get(0));
@@ -253,5 +249,9 @@ public class Game extends Observable implements Observer{
 	
 	public boolean getPlayerState() {
 		return player.isDeath();
+	}
+	
+	public int getPlayerScore(){
+		return player.getScores();
 	}
 }

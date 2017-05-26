@@ -18,20 +18,22 @@ import javax.swing.JPanel;
 import endless.model.Game;
 
 public class GameOver extends JFrame{
-	private static final String FILE = "../EndlessRunner/res/file/score.txt";
+	private static final String FILE = "../EndlessRunner/res/file/HighScore.txt";
 	
 	private JPanel helpPanel;
 	private Image image;
-	private Game game;
+
 	private int score;
+	private int highScore;
 	
 	
-	public GameOver(){
+	public GameOver(int score){
 		setTitle("BookieRun");
 		setPreferredSize(new Dimension(Menu.WIDTH, Menu.HEIGHT));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		initHelp();
-		game = new Game();
+		this.score = score;
+		highScore = 0;
 		setResizable(false);
 		pack();
 		setLocationRelativeTo(null);
@@ -56,44 +58,44 @@ public class GameOver extends JFrame{
 	}
 
 	private void paintBackground(Graphics g){
-//		BufferedReader br = null;
-//		FileReader fr = null;
-//		
-//		try {
+		BufferedReader br = null;
+		FileReader fr = null;
+		
+		try {
 
-//			fr = new FileReader(FILE);
-//			br = new BufferedReader(fr);
-//
-//			String sCurrentLine;
-//
-//			br = new BufferedReader(new FileReader(FILE));
-//
-//			while ((sCurrentLine = br.readLine()) != null) {
-//				System.out.println(sCurrentLine);
-//				score = Integer.parseInt(sCurrentLine);
-//			}
-//
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//
-//		} finally {
-//
-//			try {
-//
-//				if (br != null)
-//					br.close();
-//
-//				if (fr != null)
-//					fr.close();
-//
-//			} catch (IOException ex) {
-//
-//				ex.printStackTrace();
-//
-//			}
-//
-//		}
+			fr = new FileReader(FILE);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(FILE));
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				System.out.println(sCurrentLine);
+				highScore = Integer.parseInt(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
 	
 		try {                
 	          image = ImageIO.read(new File("../EndlessRunner/res/images/over.jpg"));
@@ -102,12 +104,12 @@ public class GameOver extends JFrame{
 	       }
 		
 		g.drawImage(image, 0, 0, null);
-//		g.setColor(Color.black);
-//		g.fillRect(0, 0, Menu.WIDTH, Menu.HEIGHT);
 		
 		g.setFont(new Font("Courier", Font.BOLD, 30));
-		g.drawString(Integer.toString(score), 300, 207);
+		g.drawString(Integer.toString(score), 300, 172);
 		
+		g.setFont(new Font("Courier", Font.BOLD, 30));
+		g.drawString(Integer.toString(highScore), 300, 248);
 		
 		
 	}
@@ -159,9 +161,6 @@ public class GameOver extends JFrame{
 					dispose();
 				}
 			}
-			
-			System.out.println(mx);
-			System.out.println(my);
 		}
 		
 	}

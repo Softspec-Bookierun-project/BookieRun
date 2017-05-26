@@ -70,13 +70,13 @@ public class Window extends JFrame implements Observer {
 	
 	private void paintBackground(Graphics g) {
 		
-//		try {                
-//	          image = ImageIO.read(new File("../EndlessRunner/res/stage.jpg"));
-//	       } catch (IOException ex) {
-//	            // handle exception...
-//	       }
-//		
-//		g.drawImage(image, 0, 0, null);
+		try {                
+	          image = ImageIO.read(new File("../EndlessRunner/res/images/stage.jpg"));
+	       } catch (IOException ex) {
+	            ex.printStackTrace();
+	       }
+		
+		g.drawImage(image, 0, 0, null);
 	}
 
 	private void drawObject(Graphics g) {
@@ -91,7 +91,7 @@ public class Window extends JFrame implements Observer {
 		g.drawImage(image,Menu.VIEWOFFSET + game.getPlayerX(),
 				reversedY(Menu.VIEWOFFSET + game.getPlayerY() + game.getPlayerHeight()),
 				game.getPlayerWidth(), 
-				game.getPlayerHeight());
+				game.getPlayerHeight(), null);
 		
 		game.drawCoin(g);
 		game.drawEnemy(g);
@@ -111,17 +111,19 @@ public class Window extends JFrame implements Observer {
 
 		g.setColor(Color.gray);
 		g.setColor(Color.white);
-		g.drawRect(68, 50, 200, 15);
-		
+
 	
 
 		try {                
 	          image = ImageIO.read(new File("../EndlessRunner/res/images/bar.jpg"));
 	       } catch (IOException ex) {
-	            // handle exception...
+	            ex.printStackTrace();
 	       }
 		
-		g.drawRect(68, 50, (int)game.getPlayerHp(),15);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Courier", Font.BOLD, 30));
+		g.drawImage(image ,68, 50, (int)game.getPlayerHp(),15, null);
+		g.drawString(Integer.toString(game.getPlayerScore()), 650, 65);
 	}
 
 	private int reversedY(int y) {

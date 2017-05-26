@@ -27,7 +27,6 @@ public interface Character {
 	public void setHeight(int height);
 	public int getCrawlHeight();
 	public int getNormalHeight();
-	public int getScore();
 	public int getjumppy();
 	public State getState();
 	public int getScores();

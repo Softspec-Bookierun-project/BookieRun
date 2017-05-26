@@ -51,40 +51,33 @@ public class Help extends JFrame{
 		try {                
 	          image = ImageIO.read(new File("../EndlessRunner/res/images/Help.jpg"));
 	       } catch (IOException ex) {
-	            // handle exception...
+	            ex.printStackTrace();
 	       }
 		
 		g.drawImage(image, 0, 0, null);
-//		g.setColor(Color.black);
-//		g.fillRect(0, 0, Menu.WIDTH, Menu.HEIGHT);
-		
-		
+
 		
 	}
 	class MouseInput implements MouseListener {
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
+
 			int mx = e.getX();
 			int my = e.getY();
 			if(mx >= 43 && mx <= 159 ){
@@ -99,7 +92,6 @@ public class Help extends JFrame{
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
 			int mx = e.getX();
 			int my = e.getY();
 			if(mx >= 43 && mx <= 159 ){
@@ -109,9 +101,6 @@ public class Help extends JFrame{
 					dispose();
 				}
 			}
-			
-			System.out.println(mx);
-			System.out.println(my);
 		}
 		
 	}

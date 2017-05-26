@@ -54,29 +54,12 @@ public class Menu extends JFrame{
 		this.addMouseListener(new MouseInput());
 	}
 
-	public void renderMenu(Graphics g){
-//		Graphics2D g2d = (Graphics2D) g;
-//		
-//		Font fnt0 = new Font("Arial", Font.BOLD, 50);
-//		g.setFont(fnt0);
-//		g.setColor(Color.WHITE);
-//		g.drawString("BookieRun", (WIDTH/3)-30, 75);
-//		
-//		Font fnt1 = new Font("Arial", Font.BOLD, 30);
-//		g.setFont(fnt1);
-//		g.drawString("Play", playButton.x + 20, playButton.y + 35);
-//		g.drawString("Help", helpButton.x + 20, helpButton.y + 35);
-//		g.drawString("Quit", quitButton.x + 20, quitButton.y + 35);
-//		g2d.draw(playButton);
-//		g2d.draw(helpButton);
-//		g2d.draw(quitButton);
-		
-		
+	public void renderMenu(Graphics g){	
 		
 		try {                
 	          image = ImageIO.read(new File("../EndlessRunner/res/images/main.jpg"));
 	       } catch (IOException ex) {
-	            // handle exception...
+	            ex.printStackTrace();
 	       }
 		
 		g.drawImage(image, 0, 0, null);
@@ -87,20 +70,17 @@ public class Menu extends JFrame{
 	
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 
-			
 		}
 
 		@Override
@@ -132,7 +112,6 @@ public class Menu extends JFrame{
 			}
 		}
 			
-		
 
 		@Override
 		public void mouseReleased(MouseEvent e) {

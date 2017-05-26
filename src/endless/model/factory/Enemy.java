@@ -22,8 +22,6 @@ public class Enemy extends Observable implements Shapes{
 	private int width;
 	private boolean hit = false;
 	
-	
-	// TODO: Add variables you need.
 
 	public Enemy() {
 		this.x = 1000;
@@ -65,7 +63,6 @@ public class Enemy extends Observable implements Shapes{
 	}
 	
 	public void update() {
-		// TODO: Complete this
 		this.x -= vY;
 		if(this.x < 100 && this.x > 0 && this.hit == false){
 			setChanged();
@@ -87,7 +84,6 @@ public class Enemy extends Observable implements Shapes{
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		Graphics2D gr = (Graphics2D) g;
         gr.setPaint(new RadialGradientPaint(
                 new Point(this.x, this.y), 60, new float[] { 0, 1 }, 
@@ -133,7 +129,6 @@ public class Enemy extends Observable implements Shapes{
 
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
 		return Color.BLACK;
 	}
 

@@ -7,7 +7,6 @@ public class StateJumpTwo extends State{
 
 	public StateJumpTwo(Character player) {
 		super(player);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

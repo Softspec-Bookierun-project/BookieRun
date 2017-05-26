@@ -37,7 +37,6 @@ public class Hero extends Observable implements Character{
 		this.state = state;
 	}
 
-	// TODO: Add variables you need.
 	private long jumpTime;
 	private int jumpY;
 
@@ -50,7 +49,6 @@ public class Hero extends Observable implements Character{
 		this.setHeight(NORMAL_HEIGHT);
 		this.time = 150;
 		setState(new StateNormal(this));
-		// TODO: Initialize variables you need
 	}
 	
 	public void setFloor(boolean onTheFloor){
@@ -117,7 +115,6 @@ public class Hero extends Observable implements Character{
 	}
 	
 	public void update() {
-		// TODO: Complete this
 		this.time -= 1;
 		if(this.time < 0){
 			setChanged();
@@ -169,37 +166,27 @@ public class Hero extends Observable implements Character{
 
 	@Override
 	public int getCrawlHeight() {
-		// TODO Auto-generated method stub
 		return CRAWL_HEIGHT;
 	}
 
 	@Override
 	public int getNormalHeight() {
-		// TODO Auto-generated method stub
 		return NORMAL_HEIGHT;
 	}
 
-	@Override
-	public int getScore() {
-		// TODO Auto-generated method stub
-		return SCORE;
-	}
 
 	@Override
 	public int getjumppy() {
-		// TODO Auto-generated method stub
 		return JUMPPY;
 	}
 
 	@Override
 	public int getScores() {
-		// TODO Auto-generated method stub
 		return this.score;
 	}
 
 	@Override
 	public void plusScore() {
-		// TODO Auto-generated method stub
 		this.score += SCORE;
 	}
 	

@@ -1,9 +1,5 @@
 package endless.model;
 
-
-
-
-
 public class Floor {
 
 	public static final int WIDTH = 1000;

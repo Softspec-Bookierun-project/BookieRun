@@ -41,7 +41,6 @@ public class Normal implements Character{
 		this.state = state;
 	}
 
-	// TODO: Add variables you need.
 	private long jumpTime;
 	private int jumpY;
 
@@ -53,7 +52,6 @@ public class Normal implements Character{
 		this.width = WIDTH;
 		this.setHeight(NORMAL_HEIGHT);
 		setState(new StateNormal(this));
-		// TODO: Initialize variables you need
 	}
 	
 	public void setFloor(boolean onTheFloor){
@@ -118,35 +116,31 @@ public class Normal implements Character{
 		int highScore = 0;
 		BufferedReader in;
 		try {
-			in = new BufferedReader(new FileReader("HighScore.txt"));
+			in = new BufferedReader(new FileReader("../EndlessRunner/res/file/HighScore.txt"));
 			try {
 				highScore = Integer.parseInt(in.readLine());
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		if(this.score > highScore){
-			try(  PrintWriter out = new PrintWriter( "HighScore.txt" )  ){
+			try(  PrintWriter out = new PrintWriter( "../EndlessRunner/res/file/HighScore.txt" )  ){
 			    out.println( this.score );
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
 		
-		GameOver go = new GameOver();
+		GameOver go = new GameOver(score);
 		go.setVisible(true);
 	}
 	
 	public void update() {
-		// TODO: Complete this
 		if(hp <= 0 || y < -550) death();
 		hp -= 0.1;
 		
@@ -195,37 +189,26 @@ public class Normal implements Character{
 
 	@Override
 	public int getCrawlHeight() {
-		// TODO Auto-generated method stub
 		return CRAWL_HEIGHT;
 	}
 
 	@Override
 	public int getNormalHeight() {
-		// TODO Auto-generated method stub
 		return NORMAL_HEIGHT;
 	}
 
 	@Override
-	public int getScore() {
-		// TODO Auto-generated method stub
-		return SCORE;
-	}
-
-	@Override
-	public int getjumppy() {
-		// TODO Auto-generated method stub
+	public int getjumppy() {	
 		return JUMPPY;
 	}
 
 	@Override
-	public int getScores() {
-		// TODO Auto-generated method stub
+	public int getScores() {	
 		return this.score;
 	}
 
 	@Override
 	public void plusScore() {
-		// TODO Auto-generated method stub
 		this.score += SCORE;
 	}
 	
