@@ -1,39 +1,50 @@
 package endless.model;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Observable;
-import java.util.concurrent.TimeUnit;
+import java.util.Observer;
 
-import endless.Menu;
-import endless.Window;
+
+
+import endless.model.factory.Coin;
+import endless.model.factory.Enemy;
+import endless.model.factory.ShapeFactory;
+import endless.model.factory.Shapes;
 import endless.state.StateJumpOne;
 import endless.state.StateJumpTwo;
+import java.awt.Color;
 
-/**
- * @author chapmac
- *
- */
-public class Game extends Observable {
+
+public class Game extends Observable implements Observer{
 
 	public static final int FPS = 60;
 	public static final float GRAVITY = -1500;
 	
 	private Player player;
-	private SpecialCoin sCoin;
 	private ArrayList<Floor> floor = new ArrayList<Floor>();
+	private ArrayList<Coin> coins = new ArrayList<Coin>();
+	private Enemy enemy;
+	
 	private int useFloor = 0;
 	private int endOfFloor;
+	private static final Color colors[] = { Color.BLUE, Color.GREEN, Color.ORANGE, Color.PINK, Color.MAGENTA };
 	private boolean running;
 	private Thread gameThread;
 	
 	
 	public Game() {
 		player = new Player(0, 0);
-		sCoin = new SpecialCoin(1000,100);
 		
-		floor.add(new Floor(-50, -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));		
+		coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
+		coins.get(0).addObserver(this);
+		
+		enemy = new Enemy();
+		enemy.addObserver(this);
+		
+		floor.add(new Floor(-50, -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 150)+100));		
 		
 		for(int i=1; i< 5;i++){
-			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth() + floor.get(i-1).getBlank(), -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 300)+100));
+			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth() + floor.get(i-1).getBlank(), -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 150)+100));
 		}
 		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - (floor.get(0).getWidth());
 	}
@@ -65,12 +76,12 @@ public class Game extends Observable {
 		if((floor.get(useFloor).getX()+floor.get(useFloor).getWidth())+ floor.get(useFloor).getBlank() -30 <= 0){
 			floor.get(useFloor).setX(endOfFloor);
   			floor.get(useFloor).setWidth((int)(Math.random()* 700)+200);
- 			floor.get(useFloor).setBlank((int)(Math.random()* 300)+100);
+ 			floor.get(useFloor).setBlank((int)(Math.random()* 150)+100);
  			if(useFloor+1 < 5){
  				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(useFloor+1).getWidth() + floor.get(useFloor+1).getBlank());
   				useFloor++;
  			} else{
- 				 endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(0).getWidth() + floor.get(0).getBlank());
+ 				endOfFloor = floor.get(useFloor).getX() + floor.get(useFloor).getWidth() + floor.get(useFloor).getBlank() - (floor.get(0).getWidth() + floor.get(0).getBlank());
    				System.out.println("======================================");
    				useFloor = 0;
    			}
@@ -89,6 +100,12 @@ public class Game extends Observable {
 		
 		sCoin.update();
 		player.update();
+		
+		enemy.update();
+		
+		for(int i=0; i<coins.size();i++){
+			coins.get(i).update();
+		}
 		for(int i=0;i<5;i++){
 			floor.get(i).update();
 		}
@@ -125,6 +142,11 @@ public class Game extends Observable {
 		return player.getX();
 	}
 	
+	public void drawCoin(Graphics g){
+		for(int i=0; i<coins.size();i++)
+			coins.get(i).draw(g);
+	}
+	
 	public int getPlayerY() {
 		return player.getY();
 	}
@@ -139,6 +161,18 @@ public class Game extends Observable {
 	
 	public double getPlayerHp(){
 		return player.getHp();
+	}
+	
+	public int getCoinX() {
+		return coins.get(0).getX();
+	}
+	
+	public int getCoinY() {
+		return coins.get(0).getY();
+	}
+	
+	public int getCoinWidth() {
+		return coins.get(0).getWidth();
 	}
 	
 	public int getFloorHeight(int i) {
@@ -169,4 +203,46 @@ public class Game extends Observable {
 		player.crawlReleased();
 	}
 	
+	private static Color getRandomColor() {
+	      return colors[(int)(Math.random()*colors.length)];
+	}
+	
+	public void drawEnemy(Graphics g){
+		enemy.draw(g);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		if(arg instanceof String){
+			ShapeFactory.store(coins.get(0));
+			coins.get(0).deleteObserver(this);
+			coins.remove(0);
+		}
+		else if(arg != null){
+			if(((364-((Shapes)arg).getY()- ((Shapes)arg).getWidth()) < player.getY() + player.getHeight()) && (364 - ((Shapes)arg).getY() > player.getY())){
+				if(((Shapes)arg) instanceof Coin){
+					coins.get(0).setX(1000);
+					coins.get(0).setY((int)(Math.random() * 200)+100);
+					coins.get(0).setVisible(false);
+					coins.get(0).setCheckDraw(false);
+					ShapeFactory.store((Coin)arg);
+					coins.get(0).deleteObserver(this);
+					coins.remove(0);
+				}
+				else{
+					player.setHp(player.getHp()-20);
+					enemy.setHit(true);
+				}
+			}
+		}
+		else{
+			coins.add((Coin)ShapeFactory.getCoin(getRandomColor()));
+			coins.get(coins.size()-1).addObserver(this);
+		}
+	}
+	
+	public boolean getPlayerState() {
+		return player.isDeath();
+	}
 }

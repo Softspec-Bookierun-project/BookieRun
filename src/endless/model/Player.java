@@ -1,8 +1,6 @@
 package endless.model;
 
 
-import java.security.Timestamp;
-import java.sql.Time;
 
 import endless.Menu;
 import endless.state.State;
@@ -37,7 +35,6 @@ public class Player {
 	}
 
 	// TODO: Add variables you need.
-	private boolean crawling;
 	private long jumpTime;
 	private int jumpY;
 
@@ -61,6 +58,10 @@ public class Player {
 
 	public int getX() {
 		return x;
+	}
+	
+	public void setHp(double hp) {
+		this.hp = hp;
 	}
 
 	public int getY() {
@@ -116,8 +117,7 @@ public class Player {
 	
 	public void update() {
 		// TODO: Complete this
-		
-		if(hp == 0) death();
+		if(hp <= 0 || y < -550) death();
 		hp -= 0.1;
 		
 		state.update();
