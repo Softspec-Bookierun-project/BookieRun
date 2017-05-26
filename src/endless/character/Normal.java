@@ -2,6 +2,12 @@ package endless.character;
 
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import endless.Menu;
 import endless.state.State;
 import endless.state.StateCrawl;
@@ -27,6 +33,7 @@ public class Normal implements Character{
 	private boolean death = false;
 	private State state;
 	private int jumpSpeed = 600;
+	private int score;
 	
 	
 	public void setState(State state) {
@@ -37,7 +44,8 @@ public class Normal implements Character{
 	private long jumpTime;
 	private int jumpY;
 
-	public Normal(int x, int y) {
+	public Normal(int x, int y, int score) {
+		this.score = score;
 		this.x = x;
 		this.y = y;
 		this.hp = HEALTH;
@@ -106,6 +114,32 @@ public class Normal implements Character{
 
 	public void death(){
 		death = true;
+		int highScore = 0;
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new FileReader("HighScore.txt"));
+			try {
+				highScore = Integer.parseInt(in.readLine());
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(this.score > highScore){
+			try(  PrintWriter out = new PrintWriter( "HighScore.txt" )  ){
+			    out.println( this.score );
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		Menu m = new Menu();
 		m.setVisible(true);
 	}
@@ -180,6 +214,18 @@ public class Normal implements Character{
 	public int getjumppy() {
 		// TODO Auto-generated method stub
 		return JUMPPY;
+	}
+
+	@Override
+	public int getScores() {
+		// TODO Auto-generated method stub
+		return this.score;
+	}
+
+	@Override
+	public void plusScore() {
+		// TODO Auto-generated method stub
+		this.score += SCORE;
 	}
 	
 }

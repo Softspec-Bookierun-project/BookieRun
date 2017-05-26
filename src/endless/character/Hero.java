@@ -30,6 +30,7 @@ public class Hero extends Observable implements Character{
 	private State state;
 	private int jumpSpeed = 200;
 	private int time;
+	private int score;
 	
 	
 	public void setState(State state) {
@@ -40,7 +41,8 @@ public class Hero extends Observable implements Character{
 	private long jumpTime;
 	private int jumpY;
 
-	public Hero(int x) {
+	public Hero(int x,int score) {
+		this.score = score;
 		this.x = x;
 		this.y = 0;
 		this.hp = HEALTH;
@@ -187,6 +189,18 @@ public class Hero extends Observable implements Character{
 	public int getjumppy() {
 		// TODO Auto-generated method stub
 		return JUMPPY;
+	}
+
+	@Override
+	public int getScores() {
+		// TODO Auto-generated method stub
+		return this.score;
+	}
+
+	@Override
+	public void plusScore() {
+		// TODO Auto-generated method stub
+		this.score += SCORE;
 	}
 	
 }

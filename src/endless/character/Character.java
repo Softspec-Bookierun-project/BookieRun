@@ -30,4 +30,6 @@ public interface Character {
 	public int getScore();
 	public int getjumppy();
 	public State getState();
+	public int getScores();
+	public void plusScore();
 }
