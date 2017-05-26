@@ -74,7 +74,7 @@ public class Menu extends JFrame{
 		
 		
 		try {                
-	          image = ImageIO.read(new File("../EndlessRunner/res/main.jpg"));
+	          image = ImageIO.read(new File("../EndlessRunner/res/images/main.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
 	       }
