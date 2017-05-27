@@ -49,7 +49,7 @@ public class Game extends Observable implements Observer{
 		for(int i=1; i< 5;i++){
 			floor.add(new Floor(floor.get(i-1).getX()+floor.get(i-1).getWidth() + floor.get(i-1).getBlank(), -30, ((int)(Math.random()* 700))+200, (int)(Math.random()* 150)+100));
 		}
-		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - (floor.get(0).getWidth());
+		endOfFloor = floor.get(4).getX() + floor.get(4).getWidth() + floor.get(4).getBlank() - ((floor.get(0).getWidth()) + floor.get(0).getBlank());
 	}
 	
 	public void start() {
