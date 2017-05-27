@@ -32,7 +32,6 @@ public class Game extends Observable implements Observer{
 	private boolean running;
 	private Thread gameThread;
 	private Color stack = Color.BLUE;
-	private int score = 0;
 	private int countDown = 0;
 	
 	
@@ -213,7 +212,6 @@ public class Game extends Observable implements Observer{
 							countDown = 1;
 							stack = ((Shapes)arg).getColor();
 						}
-						score += player.getScore();
 						coins.get(0).setX(1000);
 						coins.get(0).setY((int)(Math.random() * 200)+100);
 						coins.get(0).setVisible(false);

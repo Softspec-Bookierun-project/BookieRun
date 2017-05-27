@@ -67,7 +67,7 @@ public class Enemy extends Observable implements Shapes{
 	public void update() {
 		// TODO: Complete this
 		this.x -= vY;
-		if(this.x < 100 && this.x > 0 && this.hit == false){
+		if(this.x < 175 && this.x > 0 && this.hit == false){
 			setChanged();
 			notifyObservers(this);
 		}
